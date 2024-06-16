@@ -1,4 +1,5 @@
 <?php 
+require 'fix_mysql.inc.php';
 session_start();
 include '_inc/dbconn.php';
         

@@ -1,4 +1,5 @@
 <?php 
+require 'fix_mysql.inc.php';
 session_start();
         
 if(isset($_SESSION['admin_login'])) 
@@ -36,18 +37,19 @@ include 'header.php'; ?>
 <?php include 'footer.php';
 ?>
 <?php 
+require 'fix_mysql.inc.php';
 include '_inc/dbconn.php';
+$username =  $_REQUEST['uname'];
+$password =  $_REQUEST['pwd'];
 if(!isset($_SESSION['admin_login'])){
 if(isset($_REQUEST['submitBtn'])){
-    $sql="SELECT * FROM admin WHERE id='1'";
+    $sql="SELECT * FROM admin WHERE login_id='$username' AND pwd='$password";
     $result=mysql_query($sql);
-    $rws=  mysql_fetch_array($result);
-    $username=  mysql_real_escape_string($_REQUEST['uname']);
-    $password=  mysql_real_escape_string($_REQUEST['pwd']);
-    if($username==$rws[8] && $password==$rws[9]) {
-        
+    if($result != null) 
+    {
         $_SESSION['admin_login']=1;
-    header('location:admin_hompage.php'); }
+        header('location:admin_hompage.php'); 
+    }
     else
         header('location:adminlogin.php');      
 }

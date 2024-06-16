@@ -1,4 +1,5 @@
 <?php 
+require 'fix_mysql.inc.php';
 session_start();
         
 if(!isset($_SESSION['customer_login'])) 
@@ -42,6 +43,7 @@ if(!isset($_SESSION['customer_login']))
     </table>    </form>
     
     <?php 
+require 'fix_mysql.inc.php';
         include '_inc/dbconn.php';
         $sender_id=$_SESSION["login_id"];
         

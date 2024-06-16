@@ -1,4 +1,5 @@
 <?php 
+require 'fix_mysql.inc.php';
 session_start();
         
 if(!isset($_SESSION['staff_login'])) 

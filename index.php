@@ -11,22 +11,19 @@
      -->
 
 <?php 
+require 'fix_mysql.inc.php';
 if(isset($_REQUEST['submitBtn'])){
     include '_inc/dbconn.php';
     $username=$_REQUEST['uname'];
     
     //salting of password
     $salt="@g26jQsG&nh*&#8v";
-    $password= sha1($_REQUEST['pwd'].$salt);
+    $password= $_REQUEST['pwd'];
   
     $sql="SELECT email,password FROM customer WHERE email='$username' AND password='$password'";
     $result=mysql_query($sql) or die(mysql_error());
-    $rws=  mysql_fetch_array($result);
     
-    $user=$rws[0];
-    $pwd=$rws[1];    
-    
-    if($user==$username && $pwd==$password){
+    if($result != null){
         session_start();
         $_SESSION['customer_login']=1;
         $_SESSION['cust_id']=$username;
@@ -38,6 +35,7 @@ else{
 }}
 ?>
 <?php 
+require 'fix_mysql.inc.php';
 session_start();
         
 if(isset($_SESSION['customer_login'])) 
